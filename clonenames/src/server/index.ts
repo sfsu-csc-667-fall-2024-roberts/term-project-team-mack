@@ -39,13 +39,14 @@ app.use(morgan("dev"));
 
 const staticPath = path.join(process.cwd(), "src", "public");
 app.use(express.static(staticPath));
+
 if (process.env.NODE_ENV === "development") {
-const reloadServer = livereload.createServer();
-reloadServer.watch(staticPath);
-reloadServer.server.once("connection", () => {
-setTimeout(() => {
-reloadServer.refresh("/");
-}, 100);
-});
-app.use(connectLiveReload());
+    const reloadServer = livereload.createServer();
+    reloadServer.watch(staticPath);
+    reloadServer.server.once("connection", () => {
+        setTimeout(() => {
+            reloadServer.refresh("/");
+        }, 100);
+    });
+    app.use(connectLiveReload());
 }
