@@ -5,6 +5,8 @@ import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
 import rootRoutes from "./routes/root";
+import authRoutes from "./routes/auth";
+import gameRoutes from "./routes/games";
 import connectLiveReload from "connect-livereload";
 import livereload from "livereload";
 
@@ -22,6 +24,8 @@ app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
 app.use("/", rootRoutes);
+app.use("/auth", authRoutes);
+app.use("/games", gameRoutes);
 
 app.use((_request, _response, next) => {
 next(httpErrors(404));

@@ -5,8 +5,7 @@ Team K \
 This week we setup the frontend of our project and created the routes for each page.
 
 ### Pages created:
-- unauthenticated landing page
-- authenticated landing page
+- landing page
 - join game page
 - lobby page
 - game page
