@@ -5,6 +5,10 @@ import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
 import rootRoutes from "./routes/root";
+import authRoutes from "./routes/auth";
+import gameRoutes from "./routes/games";
+import connectLiveReload from "connect-livereload";
+import livereload from "livereload";
 
 dotenv.config();
 
@@ -20,6 +24,8 @@ app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
 app.use("/", rootRoutes);
+app.use("/auth", authRoutes);
+app.use("/games", gameRoutes);
 
 app.use((_request, _response, next) => {
 next(httpErrors(404));
@@ -34,3 +40,17 @@ app.use((_request, _response, next) => {
 });
 
 app.use(morgan("dev"));
+
+const staticPath = path.join(process.cwd(), "src", "public");
+app.use(express.static(staticPath));
+
+if (process.env.NODE_ENV === "development") {
+    const reloadServer = livereload.createServer();
+    reloadServer.watch(staticPath);
+    reloadServer.server.once("connection", () => {
+        setTimeout(() => {
+            reloadServer.refresh("/");
+        }, 100);
+    });
+    app.use(connectLiveReload());
+}
