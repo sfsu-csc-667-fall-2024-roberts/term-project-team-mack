@@ -12,10 +12,6 @@ router.get("/signup", (_request, response) => {
     response.render("auth/signup", { title: "signup", desc: "signup page" });
 });
 
-router.get("/logout", (_request, response) => {
-    response.render("auth/logout", { title: "logout", desc: "logout" });
-});
-
 router.post("/register", async (request, response) => {
     const { email, username, password } = request.body;
 
@@ -47,7 +43,8 @@ router.post("/login", async (request, response) => {
 });
 
 router.get("/logout", (request, response) => {
-    request.session.destroy(() => {
+    request.session.destroy((err) => {
+        console.log(err);
         response.redirect("/");
     });
 });
