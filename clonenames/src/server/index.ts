@@ -7,6 +7,7 @@ import * as path from "path";
 import rootRoutes from "./routes/root";
 import authRoutes from "./routes/auth";
 import gameRoutes from "./routes/games";
+import testRoutes from "./routes/test";
 import connectLiveReload from "connect-livereload";
 import livereload from "livereload";
 
@@ -26,6 +27,7 @@ app.set("view engine", "ejs");
 app.use("/", rootRoutes);
 app.use("/auth", authRoutes);
 app.use("/games", gameRoutes);
+app.use("/test", testRoutes);
 
 app.use((_request, _response, next) => {
 next(httpErrors(404));
