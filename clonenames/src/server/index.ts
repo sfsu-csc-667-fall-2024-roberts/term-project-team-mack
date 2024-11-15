@@ -26,6 +26,7 @@ app.use("/", routes.home);
 app.use("/lobby", routes.mainLobby);
 app.use("/auth", routes.auth);
 app.use("/games", routes.games);
+app.use("/test", routes.test);
 app.use((_request, _response, next) => {
 next(httpErrors(404));
 });
