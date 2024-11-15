@@ -4,7 +4,7 @@ import express from "express";
 import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
-import * as routes from './routes';
+import * as routes from './routes/manifest';
 import connectLiveReload from "connect-livereload";
 import livereload from "livereload";
 
@@ -27,6 +27,7 @@ app.use("/lobby", routes.mainLobby);
 app.use("/auth", routes.auth);
 app.use("/games", routes.games);
 app.use("/test", routes.test);
+
 app.use((_request, _response, next) => {
 next(httpErrors(404));
 });
