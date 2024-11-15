@@ -4,10 +4,7 @@ import express from "express";
 import httpErrors from "http-errors";
 import morgan from "morgan";
 import * as path from "path";
-import rootRoutes from "./routes/root";
-import authRoutes from "./routes/auth";
-import gameRoutes from "./routes/games";
-import testRoutes from "./routes/test";
+import * as routes from './routes';
 import connectLiveReload from "connect-livereload";
 import livereload from "livereload";
 
@@ -24,11 +21,12 @@ app.use(cookieParser());
 app.set("views", path.join(process.cwd(), "src", "server", "views"));
 app.set("view engine", "ejs");
 
-app.use("/", rootRoutes);
-app.use("/auth", authRoutes);
-app.use("/games", gameRoutes);
-app.use("/test", testRoutes);
-
+/* Updated use routes */
+app.use("/", routes.home);
+app.use("/lobby", routes.mainLobby);
+app.use("/auth", routes.auth);
+app.use("/games", routes.games);
+app.use("/test", routes.test);
 app.use((_request, _response, next) => {
 next(httpErrors(404));
 });
