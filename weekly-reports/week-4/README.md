@@ -7,7 +7,7 @@ Team K
   <li>Installed postgresql and ensure our code can connect to a postgres database</li>
   <li>Set up scripts for migrationsn</li>
   <li>Created simple login and signup forms</li>
-  <li>Created code to intereact with the database for anything involving users such as registering and loggin them in</li>
+  <li>Created code to intereact with the database for anything involving users such as registering and logging them in</li>
   <li>Holding all of the SQL code in a separate file for organization</li>
   <li>Created login and register routes</li>
   <li>Created middleware to see if a user is logged in</li>
