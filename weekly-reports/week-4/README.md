@@ -2,7 +2,7 @@
 Team K 
 [github repository](https://github.com/sfsu-csc-667-fall-2024-roberts/term-project-team-mack) | [github project board](https://github.com/orgs/sfsu-csc-667-fall-2024-roberts/projects/1)
 
-What we accomplished:
+<h3>What we accomplished:</h3>
 <ul>
   <li>Installed postgresql and ensure our code can connect to a postgres database</li>
   <li>Set up scripts for migrationsn</li>
