@@ -5,16 +5,7 @@
     <body>
         <h1>Game <%= id%></h1>
         <p><%= desc%></p>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/auth/login">Login</a></li>
-            <li><a href="/auth/signup">Signup</a></li>
-            <li><a href="/games/find/1">Find Game</a></li>
-            <li><a href="/games/1/lobby">Lobby</a></li>
-            <li><a href="/games/1">Game</a></li>
-            <li><a href="/how-to-play">How to Play</a></li>
-            <li><a href="/about">About</a></li>
-        </ul>
+        <%- include('navbar') %>
     </body>
     <script src="/js/main.js"></script>
 </html>
