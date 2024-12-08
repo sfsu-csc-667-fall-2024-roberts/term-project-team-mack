@@ -2,12 +2,24 @@ import express from "express";
 
 const router = express.Router();
 
-router.get("/:id", (_request, response) => {
-    const id = _request.params.id;
-    response.render("games/game", { title: `game ${id}`,
-         desc: "Where the actual game will be played",
-         id});
+router.get("/:gameId", (req, res) => {
+    const { gameId } = req.params;
+
+    res.render("games/game", { title: `Game ${gameId}`, gameId });
 });
+
+router.get("/:gameId/lobby", (req, res) => {
+    const { gameId } = req.params;
+
+    res.render("/games/lobby", { title: "Game Lobby", gameId });
+});
+
+// router.get("/:id", (_request, response) => {
+//     const id = _request.params.id;
+//     response.render("games/game", { title: `game ${id}`,
+//          desc: "Where the actual game will be played",
+//          id});
+// });
 
 router.get("/find/:page", (_request, response) => {
     const page = _request.params.page;
