@@ -1,4 +1,4 @@
 import { io } from "socket.io-client";
 
-const socket = io();
-console.log("socket", socket);
+// @ts-expect-error TODO: Define the socket object on window for TS
+window.socket = io();

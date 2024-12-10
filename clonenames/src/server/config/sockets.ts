@@ -7,8 +7,8 @@ let io: SocketIoServer | undefined;
 export default function (server: Server, app: Express, sessionMiddleware: RequestHandler): SocketIoServer {
     if(io === undefined) {
         io = new SocketIoServer(server);
-        app.set("io", io);
 
+        app.set("io", io);
         io.on("connection", (socket) => {
             const { request } = socket;
                     

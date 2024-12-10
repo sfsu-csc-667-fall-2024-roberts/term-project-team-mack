@@ -30,11 +30,14 @@ configuration.configureLiveReload(app, staticPath);
 configuration.configureSession(app)
 configuration.configureSocketIO(server, app, configuration.configureSession(app));
 
+app.use(middleware.chat);
+
 /* Updated use routes */
 app.use("/", routes.home);
 app.use("/lobby", routes.mainLobby);
 app.use("/auth", routes.auth);
 app.use("/games", middleware.authentication, routes.games);
+app.use("/chat", middleware.authentication, routes.chat);
 app.use("/test", routes.test);
 
 app.use((_request, _response, next) => {
