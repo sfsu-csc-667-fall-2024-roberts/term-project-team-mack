@@ -6,6 +6,10 @@ router.get("/", (_req, res) => {
     res.render("landing");
 });
 
+router.get("/signup", (_req, res) => {
+    res.render("signup");
+})
+
 router.get("/home", (_req, res) => {
     // @ts-expect-error
     res.render("home", { title: "Main Lobby", desc: "This is the main lobby", user: _req.session.user});

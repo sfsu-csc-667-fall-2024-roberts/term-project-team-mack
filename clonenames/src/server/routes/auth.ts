@@ -3,14 +3,6 @@ import { Users } from "../db";
 
 const router = express.Router();
 
-router.get("/login", (_request, response) => {
-    response.render("auth/login", { title: "login", desc: "login page" });
-});
-
-router.get("/signup", (_req, res) => {
-    res.render("auth/signup", { title: "signup", desc: "signup page" })
-});
-
 router.post("/register", async (request, response) => {
     const { email, username, password } = request.body;
 
@@ -19,10 +11,10 @@ router.post("/register", async (request, response) => {
         // @ts-expect-error 
         request.session.user = user;
 
-        response.redirect("/"); // take to landing page/home screen
+        response.redirect("/home");
     } catch(err) {
         console.error(err);
-        response.redirect("/auth/signup");
+        response.redirect("/signup");
     }
 });
 
@@ -34,10 +26,10 @@ router.post("/login", async (request, response) => {
         // @ts-expect-error
         request.session.user = user;
 
-        response.redirect("/");
+        response.redirect("/home");
     } catch(err) {
         console.error(err);
-        response.redirect("/auth/login");
+        response.redirect("/login");
     }
 });
 
