@@ -3,8 +3,12 @@ import express from "express";
 const router = express.Router();
 
 router.get("/", (_req, res) => {
+    res.render("landing");
+});
+
+router.get("/home", (_req, res) => {
     // @ts-expect-error
-    res.render("home", { title: "Home", desc: "Main Lobby", user: _req.session.user});
+    res.render("home", { title: "Main Lobby", desc: "This is the main lobby", user: _req.session.user});
 });
 
 router.get("/about", (_request, response) => {
