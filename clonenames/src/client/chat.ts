@@ -1,5 +1,6 @@
 const form = document.querySelector("#chat-section form")! as HTMLFormElement;
 const input = document.querySelector("input#chat-message")! as HTMLInputElement;
+
 const messageTemplate = document.querySelector(
     "#chat-message-template"
 )! as HTMLTemplateElement;

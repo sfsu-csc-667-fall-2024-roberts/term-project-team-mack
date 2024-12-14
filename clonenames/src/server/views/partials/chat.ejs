@@ -1,13 +1,30 @@
-<aside id="chat-section">
-    <template id="chat-message-template">
-        <li class="chat-message">
-            <span class="sender"></span>
-            <span class="content"></span>
-        </li>
-    </template>
-
-    <ul id="messages"></ul>
-    <form action="/chat/<%= roomId %>" method="POST">
-        <input id="chat-message" autocomplete="off" /><button>Send</button>
-    </form>
+<aside id="chat-section" class="h-full">
+    <div class="h-full w-[325px] flex flex-col gap-2">
+        <!-- chat messages container -->
+        <div class="flex-1 bg-white border border-black overflow-y-auto p-4 rounded-xl">
+            <template id="chat-message-template">
+                <li class="chat-message">
+                    <span class="sender"></span>
+                    <span class="content"></span>
+                </li>
+            </template>
+            <ul id="messages"></ul>
+        </div>
+        <!-- chat input container -->
+        <form action="/chat/<%= roomId %>" method="POST" class="m-0">
+            <div class="flex items-center relative">
+                <input 
+                    id="chat-message" 
+                    type="text"
+                    autocomplete="off"
+                    class="p-2 w-full border border-black focus:outline-none rounded-full pr-[50px]"
+                />
+                <button class="absolute right-[20px] text-black">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-black">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>                  
+                </button>
+            </div>
+        </form>
+    </div>
 </aside>

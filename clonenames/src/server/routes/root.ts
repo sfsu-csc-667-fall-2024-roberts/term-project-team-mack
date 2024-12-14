@@ -12,8 +12,13 @@ router.get("/signup", (_req, res) => {
 
 router.get("/home", (_req, res) => {
     // @ts-expect-error
-    res.render("home", { title: "Main Lobby", desc: "This is the main lobby", user: _req.session.user});
+    res.render("home", { user: _req.session.user });
 });
+
+router.get("/findGames", (_req, res) => {
+    // @ts-expect-error
+    res.render("find-games", { user: _req.session.user });
+})
 
 router.get("/about", (_request, response) => {
     response.render("about", { title: "about", desc: "This page will have information about the team and the project" });
