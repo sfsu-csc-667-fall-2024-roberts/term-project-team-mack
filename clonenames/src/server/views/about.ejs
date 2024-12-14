@@ -2,9 +2,41 @@
     <head>
         <title><%= title%> - Codenames</title>
     </head>
-    <body>
-        <p><%= desc%></p>
+    <body class="bg-primary">
         <%- include('partials/navbar') %>
+    
+        <div class="bg-secondary text-white text-center py-8 mb-8">
+            <h1 class="text-4xl font-semibold">Meet the Team</h1>
+        </div>
+    
+        <div class="max-w-7xl mx-auto p-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-8">
+                <% members.forEach(member => { %>
+                    <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-black">
+                        <img src="<%= member.imageUrl %>" alt="<%= member.name %>" class="w-32 h-32 mx-auto rounded-full mb-4">
+                        <h2 class="text-xl font-semibold text-center text-gray-800 mb-2"><%= member.name %></h2>
+                        <a href="<%= member.githubLink %>" target="_blank" class="text-blue-500 text-center block mb-4 hover:underline">
+                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="w-8 h-8 inline-block mr-2">
+                        </a>
+                        <p class="text-gray-600 text-center"><%= member.description %></p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    
+        <div class="bg-secondary text-white text-center py-8 mb-8">
+            <h1 class="text-4xl font-semibold">About the Project</h1>
+        </div>
+    
+        <div class="max-w-7xl mx-auto p-8 space-y-6">
+            <p class="text-gray-800 text-lg leading-relaxed">
+                Codenames is a popular board game that was created by Vlaada Chvátil in 2015. The game is designed for 4-8 players and is played in two teams. The game is a word-based game where players give one-word clues to their teammates to help them guess the correct words on the board. The game is won when one team correctly guesses all of their words first.
+            </p>
+            <p class="text-gray-800 text-lg leading-relaxed">
+                We recreated this game using Node, Express, EJS, and Socket.IO. The game is designed to be played online with friends and family. We hope you enjoy playing Codenames as much as we enjoyed creating it!
+            </p>
+        </div>
     </body>
+    
     <script src="/js/main.js"></script>
 </html>

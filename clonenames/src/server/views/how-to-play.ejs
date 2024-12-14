@@ -2,9 +2,85 @@
     <head>
         <title><%= title%> - Codenames</title>
     </head>
-    <body>
-        <p><%= desc%></p>
+    
+    <body class="bg-primary text-gray-900">
         <%- include('partials/navbar') %>
+    
+        <div class="bg-secondary text-white text-center py-6">
+            <h1 class="text-4xl font-semibold">Codenames Game Rules</h1>
+        </div>
+    
+        <div class="max-w-3xl mx-auto p-6 space-y-8">
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">Introduction</h2>
+                <p class="text-lg text-gray-700">
+                    Codenames is a game for two teams. There is a grid of 25 words. Some of them are secretly assigned to the Red Team, some to the Blue Team. One player from each team is the Spymaster, and only Spymasters see which words belong to which team. Spymasters take turns giving clues to their teammates (Operatives), trying to lead them to guessing their team's words. The team that guesses all their words first wins the game.
+                </p>
+            </section>
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">Dividing into Teams</h2>
+                <p class="text-lg text-gray-700">
+                    Divide all players into two teams, Red and Blue. One player from each team should click on <strong>Join as Spymaster</strong>. They will then see the colors of the cards. Everyone else should click on <strong>Join as Operative</strong>. Operatives do not see the colors of the cards.
+                </p>
+            </section>
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">Giving Clues</h2>
+                <p class="text-lg text-gray-700">
+                    Spymasters give clues. When it’s your turn to give a clue, tap some words in your color that you want to give a clue for. Then type in a one-word clue that relates to all selected words. Your Operatives will only see the clue and the number of marked cards.
+                </p>
+                <p class="text-lg text-gray-700">
+                    <strong>When you give a clue:</strong> Operatives only see the word and the number.
+                </p>
+            </section>
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">Assassin Card</h2>
+                <p class="text-lg text-gray-700">
+                    Watch out for the black card – it’s an Assassin! Avoid clues that would lead to the assassin or to the other team's words.
+                </p>
+                <p class="text-lg text-gray-700">
+                    <strong>Note:</strong> Some clues are not allowed, for example, using any form of any word on the board.
+                </p>
+            </section>
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">Guessing</h2>
+                <p class="text-lg text-gray-700">
+                    Operatives guess the words based on the Spymaster’s clue. You can discuss the clue with your teammates. You can also suggest a guess by tapping the card you think matches the clue.
+                </p>
+                <p class="text-lg text-gray-700">
+                    To make your guess official, tap the button. The game will then reveal the color of the chosen word.
+                </p>
+                <p class="text-lg text-gray-700">
+                    If you guess a word of your team's color, you may guess again. You'll want to guess as many words as your Spymaster indicated.
+                </p>
+                <p class="text-lg text-gray-700">
+                    <strong>Note:</strong> You can also guess unsolved clues from previous turns.
+                </p>
+            </section>
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">End of Turn</h2>
+                <p class="text-lg text-gray-700">
+                    Your turn can end in one of three ways:
+                </p>
+                <ul class="list-inside list-disc text-lg text-gray-700">
+                    <li>Guessing a word of the opponent's color or neutral color.</li>
+                    <li>Ending guessing manually by clicking the button.</li>
+                    <li>Reaching the maximum number of guesses (clue number + 1).</li>
+                </ul>
+            </section>
+    
+            <section>
+                <h2 class="text-2xl font-semibold text-gray-800">Winning and Losing</h2>
+                <p class="text-lg text-gray-700">
+                    Teams alternate turns. A team wins once all their words have been guessed. They lose if they guess the Assassin!
+                </p>
+            </section>
+        </div>
     </body>
     <script src="/js/main.js"></script>
 </html>
