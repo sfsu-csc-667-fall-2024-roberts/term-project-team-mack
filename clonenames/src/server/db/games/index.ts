@@ -8,12 +8,12 @@ const create = async (playerId: number, role: string, team: string) => {
     return gameId;
 };
 
-const join = async (playerId: number, gameId: number) => {
-    await db.none(ADD_PLAYER, [gameId, playerId]);
+const join = async (playerId: number, gameId: number, role: string, team: string) => {
+    await db.none(ADD_PLAYER, [gameId, playerId, role, team]);
 };
 
 const availableGames = async () => {
     return db.any(AVAILABLE_GAMES);
 }
 
-export default create;
+export default { create, join, availableGames };

@@ -1,11 +1,9 @@
-import db from "../connection";
-
 export const CREATE_GAME = `
-INSERT INTO games RETURNING id;
+INSERT INTO games DEFAULT VALUES RETURNING id;
 `;
 
 export const ADD_PLAYER = `
-INSERT INTO GamePlayers (game_id, user_id, role, team)
+INSERT INTO gameplayers (game_id, user_id, role, team)
 VALUES ($1, $2, $3, $4);
 `;
 
