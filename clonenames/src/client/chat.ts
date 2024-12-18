@@ -33,7 +33,6 @@ form.addEventListener("submit", (e) => {
 });
 
 (() => {
-    // @ts-expect-error TODO: Define the socket object on window for TS
     window.socket.on("message:0", 
         (payload: { message: string, sender: string, timestamp: string }) => {
             const messageElement = messageTemplate.content.cloneNode(true) as HTMLElement;

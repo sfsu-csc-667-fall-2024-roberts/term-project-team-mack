@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Codenames</title>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <%- include('partials/navbar') %>
+        <div class="bg-primary h-[90vh] p-[50px] flex justify-center gap-4">
+            <div class="w-[40vw] h-full bg-white overflow-x-auto rounded-lg">  
+                <table class="table table-zebra">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Host</th>
+                        <th>Players</th>
+                    </tr>
+                    </thead>
+                    <tbody id="available-games">
+                        <% locals.availableGames !== undefined && availableGames.forEach((game, index) => { %>
+                            <tr>
+                                <th><%= index + 1 %></th>
+                                <td><%= game.host %></td>
+                                <td><%= game.players %>/4</td>
+                                <td>Join</td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <%- include('partials/chat') %>
+        </div>
+
+        <template id="game-row">
+            <tr>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td>
+                    <form action="/join/X" method="post">
+                        <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
+                    </form>
+                </td>
+            </tr>
+        </template>
+
+    </body>
+    <%- include('partials/footer') %>
+</html>

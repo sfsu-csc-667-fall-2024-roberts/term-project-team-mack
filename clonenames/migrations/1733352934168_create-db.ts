@@ -39,8 +39,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         },
         created_by: {
             type: "integer",
-            references: "users(id)",
-            onDelete: "CASCADE"
+            references: "users(id)"
         },
         created_at: {
             type: "timestamp",

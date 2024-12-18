@@ -25,6 +25,7 @@ router.post("/login", async (request, response) => {
         const user = await Users.login(email, password);
         // @ts-expect-error
         request.session.user = user;
+        console.log({ user });
 
         response.redirect("/home");
     } catch(err) {

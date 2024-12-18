@@ -1,5 +1,7 @@
 export const CREATE_GAME = `
-INSERT INTO games DEFAULT VALUES RETURNING id;
+INSERT INTO games (created_by)
+VALUES ($1)
+RETURNING *, 1 as players;
 `;
 
 export const ADD_PLAYER = `
@@ -7,10 +9,21 @@ INSERT INTO gameplayers (game_id, user_id, role, team)
 VALUES ($1, $2, $3, $4);
 `;
 
-export const AVAILABLE_GAMES =  `
-SELECT g.id, COUNT(gp.id) as player_count
-FROM games g
-JOIN GamePlayers gp ON g.id = gp.game_id
-GROUP BY g.id
-HAVING player_count < 4;
-`;
+export const AVAILABLE_GAMES = `
+SELECT 
+  games.*, 
+  users.username AS host, 
+  (SELECT COUNT(*) FROM gameplayers WHERE games.id = gameplayers.game_id) AS players 
+FROM 
+  games 
+JOIN 
+  users 
+ON 
+  games.created_by = users.id
+WHERE 
+  games.id IN (
+    SELECT game_id 
+    FROM gameplayers 
+    GROUP BY game_id 
+    HAVING COUNT(*) < 4
+  );`;

@@ -1,4 +1,5 @@
 import express from "express";
+import authenticationMiddleware from "../middleware/authentication";
 
 const router = express.Router();
 
@@ -10,15 +11,10 @@ router.get("/signup", (_req, res) => {
     res.render("signup");
 })
 
-router.get("/home", (_req, res) => {
+router.get("/home", authenticationMiddleware, (_req, res) => {
     // @ts-expect-error
     res.render("home", { user: _req.session.user });
 });
-
-router.get("/findGames", (_req, res) => {
-    // @ts-expect-error
-    res.render("find-games", { user: _req.session.user });
-})
 
 router.get("/about", (_req, response) => {
     const members = [

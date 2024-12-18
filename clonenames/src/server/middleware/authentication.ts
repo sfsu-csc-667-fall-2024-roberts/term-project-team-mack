@@ -7,7 +7,7 @@ const authenticationMiddleware = (
 ) => {
     // @ts-expect-error
     if(!request.session.user) {
-        response.redirect("/auth/login");
+        response.redirect("/");
     } else {
         // @ts-expect-error
         response.locals.user = request.session.user;
