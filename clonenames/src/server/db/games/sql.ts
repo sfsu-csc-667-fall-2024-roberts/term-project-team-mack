@@ -27,3 +27,8 @@ WHERE
     GROUP BY game_id 
     HAVING COUNT(*) < 4
   );`;
+
+  export const GET_HOST = `
+  SELECT username FROM users
+  WHERE users.id = ($1);
+  `;

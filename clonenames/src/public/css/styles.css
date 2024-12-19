@@ -2101,6 +2101,9 @@ html {
 .rounded-sm {
   border-radius: 0.125rem;
 }
+.rounded-md {
+  border-radius: 0.375rem;
+}
 .border {
   border-width: 1px;
 }

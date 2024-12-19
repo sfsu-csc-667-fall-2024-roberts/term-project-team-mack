@@ -17,13 +17,17 @@
                         <th>Players</th>
                     </tr>
                     </thead>
-                    <tbody id="available-games">
+                    <tbody id="available-games-list">
                         <% locals.availableGames !== undefined && availableGames.forEach((game, index) => { %>
-                            <tr>
+                            <tr id="game-row-<%= game.id %>">
                                 <th><%= index + 1 %></th>
                                 <td><%= game.host %></td>
                                 <td><%= game.players %>/4</td>
-                                <td>Join</td>
+                                <td>
+                                    <form action="/games/join/<%= game.id %>" method="post" class="m-0">
+                                        <button class="bg-primary hover:bg-info rounded-md border border-black w-full h-full">Join</button>
+                                    </form>
+                                </td>
                             </tr>
                         <% }) %>
                     </tbody>
@@ -32,19 +36,18 @@
             <%- include('partials/chat') %>
         </div>
 
-        <template id="game-row">
+        <template id="game-row-template">
             <tr>
-                <th></th>
-                <td></td>
-                <td></td>
-                <td>
-                    <form action="/join/X" method="post">
-                        <button class="bg-blue-200 rounded-sm px-1 border-[1px] border-blue-800">Join</button>
+                <th></th> <!-- index -->
+                <td class="host"></td> <!-- host -->
+                <td class="players"></td> <!-- player count -->
+                <td class="joinGame"> <!-- join button -->
+                    <form action="/games/join/X" method="post" class="m-0">
+                        <button class="bg-primary hover:bg-info rounded-md border border-black w-full h-full">Join</button>
                     </form>
                 </td>
             </tr>
         </template>
-
     </body>
     <%- include('partials/footer') %>
 </html>

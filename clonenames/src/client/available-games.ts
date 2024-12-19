@@ -1,18 +1,15 @@
-const rowTemplate = document.querySelector<HTMLTemplateElement>("#game-row")!;
-const gamesList = document.querySelector<HTMLTableSectionElement>("#available-games")!;
+const list = document.querySelector<HTMLTableSectionElement>("#available-games-list")!;
+const rowTemplate = document.querySelector<HTMLTemplateElement>("#game-row-template")!;
 
 window.socket.on("game-created", (game) => {
-    console.log("Game Created", { game });
-// issue here TODO: need to get the host added to game 
-    const rowCount = gamesList.querySelectorAll("tr").length;
+    const row = rowTemplate.content.cloneNode(true) as HTMLTableRowElement;
+    const rowIndex = list.querySelectorAll("tr").length;
 
-    const row = rowTemplate.content.cloneNode(true) as DocumentFragment;
-
-    row.querySelector("th")!.textContent = (rowCount + 1).toString(); // index
-    row.querySelector("td:nth-child(1)")!.textContent = game.host;   // host
-    row.querySelector("td:nth-child(2)")!.textContent = `${game.players}/4`; // players
-    row.querySelector<HTMLFormElement>("td:nth-child(3) form")!.action =
-    `/games/join/${game.id}`;
-
-    gamesList.appendChild(row);
-});
+    row.querySelector("tr")!.id = `game-row-${game.id}`;
+    row.querySelector("th")!.textContent = (rowIndex + 1).toString(); // index
+    row.querySelector(".host")!.textContent = game.host; // host 
+    row.querySelector(".players")!.textContent = `${game.players}/4`; // players
+    row.querySelector<HTMLFormElement>(".joinGame form")!.action = `/games/join/${game.id}`;
+  
+    list.appendChild(row);
+  });
