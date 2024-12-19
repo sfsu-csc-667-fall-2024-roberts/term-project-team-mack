@@ -22,7 +22,7 @@
                             <tr id="game-row-<%= game.id %>">
                                 <th><%= index + 1 %></th>
                                 <td><%= game.host %></td>
-                                <td><%= game.players %>/4</td>
+                                <td class="players"><%= game.players %>/4</td>
                                 <td>
                                     <form action="/games/join/<%= game.id %>" method="post" class="m-0">
                                         <button class="bg-primary hover:bg-info rounded-md border border-black w-full h-full">Join</button>

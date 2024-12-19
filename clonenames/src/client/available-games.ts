@@ -12,4 +12,17 @@ window.socket.on("game-created", (game) => {
     row.querySelector<HTMLFormElement>(".joinGame form")!.action = `/games/join/${game.id}`;
   
     list.appendChild(row);
-  });
+});
+
+window.socket.on("game-updated", (game) => {
+    console.log("game-updated emitted and received!", game);
+    const row = list.querySelector<HTMLTableRowElement>(`#game-row-${game.game_id}`);
+    
+    if(row) {
+        if(parseInt(game.players) === 3) {
+            row.remove();
+        } else {
+            row.querySelector(".players")!.textContent = `${parseInt(game.players) + 1}/4`; // players
+        }
+    }
+});

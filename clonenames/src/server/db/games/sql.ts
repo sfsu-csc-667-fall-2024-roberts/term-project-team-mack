@@ -6,7 +6,8 @@ RETURNING *, 1 as players;
 
 export const ADD_PLAYER = `
 INSERT INTO gameplayers (game_id, user_id, role, team)
-VALUES ($1, $2, $3, $4);
+VALUES ($1, $2, $3, $4)
+RETURNING game_id, (SELECT COUNT(*) FROM gameplayers WHERE game_id = $1) AS players;
 `;
 
 export const AVAILABLE_GAMES = `
@@ -31,4 +32,11 @@ WHERE
   export const GET_HOST = `
   SELECT username FROM users
   WHERE users.id = ($1);
+  `;
+
+  export const FIND_OPEN_TEAM = `
+  SELECT team, COUNT(*) as players, ARRAY_AGG(role) as roles
+  FROM gameplayers
+  WHERE game_id = $1
+  GROUP BY team;
   `;
