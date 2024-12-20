@@ -3,11 +3,49 @@ import { Games } from "../db";
 
 const router = express.Router();
 
+// HELPER FUNCTIONS didn't know where to put it
+
+function getRandomCodes() : string[] {
+    const wordPool: string[] = [
+        "Apple", "Car", "Mountain", "Shadow", "River", 
+        "Castle", "Knight", "Fire", "Water", "Sword", 
+        "Shield", "Light", "Dark", "Cloud", "Storm", 
+        "Tree", "Sun", "Moon", "Stone", "Gold", 
+        "Silver", "Wolf", "Bear", "Eagle", "Lion", 
+        "Fox", "Star", "Planet", "Wizard", "Dragon",
+        "Bun", "Valley", "Yellow", "Bebber", "Dodo",
+        "Robot", "Doom", "Yield", "Book", "Officer"
+    ];
+
+    const shuffle: string[] = [...wordPool].sort(()=>Math.random() - 0.5);
+    return shuffle.slice(0, 25);
+}
+
+function getRandomColorCodes() : string[] {
+    const color: string[] = [
+        "red", "blue", "neutral", "dark"
+    ]
+
+    const shuffle: string[] = [];
+
+
+    for (let i = 0; i < 25; i++) {
+        const randomColor = color[Math.floor(Math.random() * color.length)];
+        shuffle.push(randomColor);
+    }
+    return shuffle
+}
+
+/*
+* END OF HELPER FUNCTIONS
+*/
+
 router.post("/create", async (req, res) => {
     // @ts-expect-error
     const { id: user_id } = req.session.user;
     const game = await Games.create(user_id, "spymaster", "red");
-    const host = await Games.getHost(game.id);
+    // @ts-expect-error
+    const host = await Games.getHost(game.created_by);
     req.app.get("io").emit("game-created", { ...game, host: host.username });
 
     res.redirect(`/games/lobby/${game.id}`);
@@ -37,25 +75,34 @@ router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
     const { gameId, team, role } = req.params;
     // @ts-expect-error
     const { id: user_id, username } = req.session.user;
-    await Games.updatePlayerRole(user_id, gameId, team, role);
+    const updatedPlayer = await Games.updatePlayerRole(user_id, gameId, team, role);
     req.app.get("io").emit("player-updated", {
         role,
         team,
         username
     });
-
-    res.redirect(`/games/lobby/${gameId}`);
 });
 
 router.get("/lobby/:gameId", async (req, res) => {
-    // @ts-expect-error
-    const { username } = req.session.user;
     const { gameId } = req.params;
     const { redTeam, blueTeam } = await Games.getTeams(gameId); 
-    const host = await Games.getHost(parseInt(gameId));
+    console.log({ redTeam, blueTeam });
 
-    console.log({ host, username });
-    res.render("lobby", { gameId, redTeam, blueTeam, host: host.username, username });
+    res.render("lobby", { gameId, redTeam, blueTeam });
+});
+
+// get this in a fetch
+router.get("/setGameboard", async (req, res) => {
+
+    const codes: string[] = getRandomCodes();
+    const colorCodes: string[] = getRandomColorCodes();
+
+    const gameboard: { code: string; colorCode: string }[] = codes.map((code, index) => ({
+        code,
+        colorCode: colorCodes[index]
+    }));
+
+    res.json(gameboard);
 });
 
 export default router;
