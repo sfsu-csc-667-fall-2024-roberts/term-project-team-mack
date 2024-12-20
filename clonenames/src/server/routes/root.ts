@@ -25,22 +25,22 @@ router.get("/about", (_req, response) => {
             description: "Cole is a senior at San Francisco State University studying Computer Science. He is interested in software development and machine learning."
         },
         {
-            name: "Name",
-            imageUrl: "image link",
-            githubLink: "https://github.com/",
-            description: "Description"
+            name: "Alex Hoff",
+            imageUrl: "https://media.licdn.com/dms/image/v2/D5603AQH18UCo3ZLsag/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1703370250622?e=1740009600&v=beta&t=8-9dKvYQEwGvpureVwDUZC49hR7ENMcSq9WzZ-HZqQQ",
+            githubLink: "https://github.com/alexhoff2",
+            description: "Alex is a senior at San Francisco State University studying Computer Science. He is interested in Cyber-Security and Game Development."
         },
         {
-            name: "Name",
+            name: "Martin Pham",
             imageUrl: "image link",
-            githubLink: "https://github.com/",
-            description: "Description"
+            githubLink: "https://github.com/mar10fam",
+            description: "Martin is a senior at San Francisco State University studying Computer Science. "
         },
         {
-            name: "Name",
+            name: "Bryan Rodriguez",
             imageUrl: "image link",
-            githubLink: "https://github.com/",
-            description: "Description"
+            githubLink: "https://github.com/Bryan-Rodriguez-ldnbm",
+            description: "Bryan is a senior at San Francisco State University studying Computer Science."
         }
     ];
 
