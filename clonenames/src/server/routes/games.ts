@@ -77,14 +77,14 @@ router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
     const { gameId, team, role } = req.params;
     // @ts-expect-error
     const { id: user_id, username } = req.session.user;
-    const updatedPlayer = await Games.updatePlayerRole(user_id, gameId, team, role);
+    await Games.updatePlayerRole(user_id, gameId, team, role);
     req.app.get("io").emit("player-updated", {
         role,
         team,
         username
     });
 
-    res.status(200).send();
+    res.redirect(`/games/lobby/${gameId}`);
 });
 
 router.get("/lobby/:gameId", async (req, res) => {
