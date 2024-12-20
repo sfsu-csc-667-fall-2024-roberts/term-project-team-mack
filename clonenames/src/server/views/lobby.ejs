@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Codenames</title>
+        <link rel="stylesheet" href="/css/styles.css">
+    </head>
+    <body>
+        <%- include('partials/navbar') %>
+        <div class="bg-primary p-[50px] h-[90vh] flex justify-center gap-4">
+            <!-- red team -->
+            <div class="flex flex-col gap-6">
+                <div class="h-full w-[325px] rounded-md bg-[#8F2B1C]">
+
+                </div>
+                <!-- join buttons -->
+                <div class="flex">
+                    <form class="flex-1 text-center m-0">
+                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
+                    </form>
+                    <form class="flex-1 text-center m-0">
+                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
+                    </form>
+                </div>
+            </div>
+            <!-- blue team -->
+            <div class="flex flex-col gap-6">
+                <div class="h-full w-[325px] rounded-md bg-[#3384A3]">
+
+                </div>
+                <!-- join buttons -->
+                <div class="flex">
+                    <form class="flex-1 text-center m-0">
+                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
+                    </form>
+                    <form class="flex-1 text-center m-0">
+                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
+                    </form>
+                </div>
+            </div>
+            <%- include('partials/chat') %>
+        </div>
+    </body>
+    <%- include('partials/footer') %>
+</html>

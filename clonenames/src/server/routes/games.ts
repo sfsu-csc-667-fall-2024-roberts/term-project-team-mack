@@ -29,14 +29,14 @@ router.post("/join/:gameId", async (req, res) => {
     // - Automatically put them in an open team and role 
     const { team, role } = await Games.findOpenTeam(gameId);
     const game = await Games.join(user_id, parseInt(gameId), role, team);
-    console.log({ game });
+    
     req.app.get("io").emit("game-updated", game);
-    res.redirect(`/games/${gameId}`);
+    res.redirect(`/games/lobby/${gameId}`);
 });
 
-router.get("/:gameId", (req, res) => {
+router.get("/lobby/:gameId", (req, res) => {
     const { gameId } = req.params;
-    res.render("game", { title: `Game ${gameId}`, gameId });
+    res.render("lobby", { title: `Game ${gameId}`, gameId });
 });
 
 

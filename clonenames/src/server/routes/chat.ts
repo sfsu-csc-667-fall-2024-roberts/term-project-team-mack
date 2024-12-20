@@ -9,7 +9,8 @@ router.post("/:roomId", (req, res) => {
     // @ts-expect-error
     const { username } = req.session.user;
     const io = req.app.get("io");
-    io.emit(`message:${roomId}`, {
+
+    io.to(roomId).emit(`message:${roomId}`, {
         message,
         sender: username,
         timestamp: new Date()

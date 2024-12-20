@@ -2011,6 +2011,9 @@ html {
 .w-screen {
   width: 100vw;
 }
+.w-\[25vw\] {
+  width: 25vw;
+}
 .max-w-3xl {
   max-width: 48rem;
 }
@@ -2058,6 +2061,9 @@ html {
 }
 .gap-8 {
   gap: 2rem;
+}
+.gap-6 {
+  gap: 1.5rem;
 }
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
@@ -2157,6 +2163,10 @@ html {
   --tw-bg-opacity: 1;
   background-color: rgb(191 219 254 / var(--tw-bg-opacity, 1));
 }
+.bg-\[\#FFE400\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 228 0 / var(--tw-bg-opacity, 1));
+}
 .p-2 {
   padding: 0.5rem;
 }
@@ -2174,6 +2184,12 @@ html {
 }
 .p-\[5px\] {
   padding: 5px;
+}
+.p-\[20px\] {
+  padding: 20px;
+}
+.p-\[4px\] {
+  padding: 4px;
 }
 .px-4 {
   padding-left: 1rem;
@@ -2198,6 +2214,14 @@ html {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+.px-\[4px\] {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.px-\[6px\] {
+  padding-left: 6px;
+  padding-right: 6px;
 }
 .pl-\[5\%\] {
   padding-left: 5%;
@@ -2236,6 +2260,10 @@ html {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 .font-bold {
   font-weight: 700;
@@ -2312,6 +2340,14 @@ html {
 .hover\:bg-primary:hover {
   --tw-bg-opacity: 1;
   background-color: var(--fallback-p,oklch(var(--p)/var(--tw-bg-opacity, 1)));
+}
+.hover\:bg-\[\#ecd300\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 211 0 / var(--tw-bg-opacity, 1));
+}
+.hover\:bg-\[\#ECD300\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(236 211 0 / var(--tw-bg-opacity, 1));
 }
 .hover\:text-white:hover {
   --tw-text-opacity: 1;

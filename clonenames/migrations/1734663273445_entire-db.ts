@@ -3,7 +3,6 @@ import { ColumnDefinitions, MigrationBuilder } from 'node-pg-migrate';
 export const shorthands: ColumnDefinitions | undefined = undefined;
 
 export async function up(pgm: MigrationBuilder): Promise<void> {
-    // create users table
     pgm.createTable("users", {
         id: "id",
         email: {
@@ -26,17 +25,8 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         }
     });
 
-    // create games table
     pgm.createTable("games", {
         id: "id",
-        name: {
-            type: "varchar(255)",
-            notNull: true
-        },
-        status: {
-            type: "varchar(15)",
-            notNull: true
-        },
         created_by: {
             type: "integer",
             references: "users(id)"
@@ -50,9 +40,8 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
             default: pgm.func("current_timestamp")
         }
     });
-
-    // create GamePlayers table
-    pgm.createTable("GamePlayers", {
+    
+    pgm.createTable("gameplayers", {
         id: "id",
         game_id: {
             type: "integer",
@@ -78,8 +67,7 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
         }
     });
 
-    // create GameState table
-    pgm.createTable("GameState", {
+    pgm.createTable("gamestate", {
         id: "id",
         game_id: {
             type: "integer",
@@ -106,8 +94,8 @@ export async function up(pgm: MigrationBuilder): Promise<void> {
 }
 
 export async function down(pgm: MigrationBuilder): Promise<void> {
-    pgm.dropTable("GameState");
-    pgm.dropTable("GamePlayers");
+    pgm.dropTable("gamestate");
+    pgm.dropTable("gameplayers");
     pgm.dropTable("games");
     pgm.dropTable("users");
 }
