@@ -65,3 +65,8 @@ SET team = $1, role = $2, joined_at = NOW()
 WHERE user_id = $3 AND game_id = $4
 RETURNING *;
 `;
+
+export const START_GAME = `
+INSERT INTO gamestate (game_id, grid, current_turn)
+VALUES ($1, $2, $3);
+`;

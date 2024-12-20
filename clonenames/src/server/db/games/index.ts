@@ -1,5 +1,43 @@
-import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET_TEAMS, UPDATE_PLAYER_ROLE } from "./sql";
+import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET_TEAMS, START_GAME, UPDATE_PLAYER_ROLE } from "./sql";
 import db from "../connection";
+
+// HELPER FUNCTIONS FOR STARTING GAME 
+function getRandomWords(): string[] {
+    const wordPool: string[] = [
+        "Apple", "Car", "Mountain", "Shadow", "River", 
+        "Castle", "Knight", "Fire", "Water", "Sword", 
+        "Shield", "Light", "Dark", "Cloud", "Storm", 
+        "Tree", "Sun", "Moon", "Stone", "Gold", 
+        "Silver", "Wolf", "Bear", "Eagle", "Lion", 
+        "Fox", "Star", "Planet", "Wizard", "Dragon",
+        "Bun", "Valley", "Yellow", "Airplane", "Dodo",
+        "Robot", "Doom", "Yield", "Book", "Officer",
+        "Space", "Ocean", "Desert", "Forest", "Jungle",
+        "Ninja", "Samurai", "Viking", "Phantom", "Rebel",
+        "Sunrise", "Sunset", "Galaxy", "Comet", "Meteor",
+        "Shadow", "Echo", "Pulse", "Quantum", "Raven",
+        "Crown", "King", "Queen", "Pirate", "Knight"
+    ];
+
+    const shuffle: string[] = [...wordPool].sort(() => Math.random() - 0.5);
+    return shuffle.slice(0, 25);
+}
+
+// adjust the color distribution for the gameboard
+function getRandomColorCodes(): string[] {
+    const color: string[] = [
+        "red", "blue", "neutral", "neutral", "neutral", 
+        "neutral", "neutral", "neutral", "neutral", 
+        "blue", "blue", "blue", "blue", "blue", "blue", 
+        "blue", "red", "red", "red", "red", 
+        "red", "red", "red", "assassin", "neutral"
+    ];
+
+    const shuffle: string[] = [...color].sort(() => Math.random() - 0.5);
+    return shuffle;
+}
+
+// END OF HELPER FUNCTIONS
 
 const create = async (playerId: number, role: string, team: string) => {
     try {
@@ -24,7 +62,7 @@ const availableGames = async () => {
 
 const getHost = async (game_id: number) => {
     const host = await db.one(GET_HOST, [game_id]);
-    return host;
+    return host.username;
 };
 
 const findOpenTeam = async (gameId: string) => {
@@ -88,4 +126,34 @@ const updatePlayerRole = async (userId: number, gameId: string, team: string, ro
     return player;
 }
 
-export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole };
+const start = async (gameId: string) => {
+    const words = getRandomWords();
+    const keyCard = getRandomColorCodes();
+
+    // initialize the board grid
+    const board = new Array(5).fill(null).map((_, rowIndex) => {
+        return new Array(5).fill(null).map((_, colIndex) => {
+            return {
+                word: words[rowIndex * 5 + colIndex],
+                type: keyCard[rowIndex * 5 + colIndex],
+                revealed: false
+            };
+        });
+    });
+    
+    // map colors to board
+    let idx = 0;
+    board.forEach((row) => {
+        row.forEach((cell) => {
+            cell.type = keyCard[idx++];
+            cell.revealed = false;
+        });
+    });
+
+    const boardJSON = JSON.stringify(board);
+
+    await db.none(START_GAME, [gameId, boardJSON, 'red']);
+    return { board: boardJSON, keyCard }
+}
+
+export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, start };

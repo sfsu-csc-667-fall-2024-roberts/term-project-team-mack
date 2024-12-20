@@ -55,7 +55,7 @@
                         </div>
                     </div>
                 </div>
-                <form class="text-center m-0">
+                <form class="text-center m-0" action="/games/start/<%= gameId %>" method="POST">
                     <button 
                     class="w-full rounded-full border border-black h-12
                     <%= (host !== username) ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]` %>"

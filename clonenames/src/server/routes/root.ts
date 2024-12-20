@@ -32,9 +32,9 @@ router.get("/about", (_req, response) => {
         },
         {
             name: "Martin Pham",
-            imageUrl: "image link",
+            imageUrl: "/images/martin.jpg",
             githubLink: "https://github.com/mar10fam",
-            description: "Martin is a senior at San Francisco State University studying Computer Science. "
+            description: "Martin is a senior at San Francisco State University studying Computer Science. He is interested in Machine Learning and Web Development."
         },
         {
             name: "Bryan Rodriguez",
