@@ -8,35 +8,44 @@
     <body>
         <%- include('partials/navbar') %>
         <div class="bg-primary p-[50px] h-[90vh] flex justify-center gap-4">
-            <!-- red team -->
             <div class="flex flex-col gap-6">
-                <div class="h-full w-[325px] rounded-md bg-[#8F2B1C]">
-
+                <div class="flex gap-4 h-full">
+                    <!-- red team -->
+                    <div class="flex flex-col gap-6">
+                        <!-- join buttons -->
+                        <div class="flex">
+                            <form class="flex-1 text-center m-0">
+                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
+                            </form>
+                            <form class="flex-1 text-center m-0">
+                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
+                            </form>
+                        </div>
+                        <div class="h-full w-[325px] rounded-md bg-[#8F2B1C] p-[10px]">
+                            <div class="redSpymaster text-2xl text-white mb-10">Spymaster: <%= redTeam.spymaster ? redTeam.spymaster : "-" %></div> <!-- red spymaster -->
+                            <div class="redOperative text-2xl text-white">Operative: <%= redTeam.operative ? redTeam.operative : "-" %></div> <!-- red operative -->
+                        </div>
+                    </div>
+                    <!-- blue team -->
+                    <div class="flex flex-col gap-6">
+                        <!-- join buttons -->
+                        <div class="flex">
+                            <form class="flex-1 text-center m-0">
+                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
+                            </form>
+                            <form class="flex-1 text-center m-0">
+                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
+                            </form>
+                        </div>
+                        <div class="h-full w-[325px] rounded-md bg-[#3384A3] p-[10px]">
+                            <div class="blueSpymaster text-2xl text-white mb-10">Spymaster: <%= blueTeam.spymaster ? blueTeam.spymaster : "-" %></div> <!-- blue spymaster -->
+                            <div class="blueOperative text-2xl text-white">Operative: <%= blueTeam.operative ? blueTeam.operative : "-" %></div> <!-- blue operative -->
+                        </div>
+                    </div>
                 </div>
-                <!-- join buttons -->
-                <div class="flex">
-                    <form class="flex-1 text-center m-0">
-                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
-                    </form>
-                    <form class="flex-1 text-center m-0">
-                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
-                    </form>
-                </div>
-            </div>
-            <!-- blue team -->
-            <div class="flex flex-col gap-6">
-                <div class="h-full w-[325px] rounded-md bg-[#3384A3]">
-
-                </div>
-                <!-- join buttons -->
-                <div class="flex">
-                    <form class="flex-1 text-center m-0">
-                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
-                    </form>
-                    <form class="flex-1 text-center m-0">
-                        <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
-                    </form>
-                </div>
+                <form class="text-center m-0">
+                    <button class="w-full bg-[#FFE400] hover:bg-[#ECD300] rounded-full border border-black h-12">Start Game</button>
+                </form>
             </div>
             <%- include('partials/chat') %>
         </div>

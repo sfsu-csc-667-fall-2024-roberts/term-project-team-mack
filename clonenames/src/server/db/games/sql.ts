@@ -27,16 +27,39 @@ WHERE
     FROM gameplayers 
     GROUP BY game_id 
     HAVING COUNT(*) < 4
-  );`;
+  );  
+`;
 
-  export const GET_HOST = `
-  SELECT username FROM users
-  WHERE users.id = ($1);
-  `;
+export const GET_HOST = `
+SELECT username FROM users
+WHERE users.id = ($1);
+`;
 
-  export const FIND_OPEN_TEAM = `
-  SELECT team, COUNT(*) as players, ARRAY_AGG(role) as roles
-  FROM gameplayers
-  WHERE game_id = $1
-  GROUP BY team;
-  `;
+export const FIND_OPEN_TEAM = `
+SELECT team, COUNT(*) as players, ARRAY_AGG(role) as roles
+FROM gameplayers
+WHERE game_id = $1
+GROUP BY team;
+`;
+
+export const GET_TEAMS = `
+SELECT 
+  gp.team, 
+  gp.role, 
+  u.username 
+FROM 
+  gameplayers gp
+JOIN 
+  users u 
+ON 
+  gp.user_id = u.id
+WHERE 
+  gp.game_id = $1;
+`;
+
+export const UPDATE_PLAYER_ROLE = `
+UPDATE gameplayers
+SET role = $1, team = $2, joined_at = NOW()
+WHERE user_id = $3 AND game_id = $4
+RETURNING *;
+`;

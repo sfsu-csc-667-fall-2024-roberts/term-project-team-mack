@@ -1923,6 +1923,9 @@ html {
 .ml-\[5px\] {
   margin-left: 5px;
 }
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
 .block {
   display: block;
 }
@@ -1977,6 +1980,9 @@ html {
 }
 .h-\[15px\] {
   height: 15px;
+}
+.h-12 {
+  height: 3rem;
 }
 .w-1\/2 {
   width: 50%;
@@ -2190,6 +2196,9 @@ html {
 }
 .p-\[4px\] {
   padding: 4px;
+}
+.p-\[10px\] {
+  padding: 10px;
 }
 .px-4 {
   padding-left: 1rem;

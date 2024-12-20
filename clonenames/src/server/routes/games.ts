@@ -11,7 +11,7 @@ router.post("/create", async (req, res) => {
     const host = await Games.getHost(game.created_by);
     req.app.get("io").emit("game-created", { ...game, host: host.username });
 
-    res.redirect(`/games/${game.id}`);
+    res.redirect(`/games/lobby/${game.id}`);
 });
 
 router.get("/availableGames", async (_req, res) => {
@@ -29,14 +29,29 @@ router.post("/join/:gameId", async (req, res) => {
     // - Automatically put them in an open team and role 
     const { team, role } = await Games.findOpenTeam(gameId);
     const game = await Games.join(user_id, parseInt(gameId), role, team);
-    
+
     req.app.get("io").emit("game-updated", game);
     res.redirect(`/games/lobby/${gameId}`);
 });
 
-router.get("/lobby/:gameId", (req, res) => {
+router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
+    const { gameId, team, role } = req.params;
+    // @ts-expect-error
+    const { id: user_id, username } = req.session.user;
+    const updatedPlayer = await Games.updatePlayerRole(user_id, gameId, team, role);
+    req.app.get("io").emit("player-updated", {
+        role,
+        team,
+        username
+    });
+});
+
+router.get("/lobby/:gameId", async (req, res) => {
     const { gameId } = req.params;
-    res.render("lobby", { title: `Game ${gameId}`, gameId });
+    const { redTeam, blueTeam } = await Games.getTeams(gameId); 
+    console.log({ redTeam, blueTeam });
+
+    res.render("lobby", { gameId, redTeam, blueTeam });
 });
 
 

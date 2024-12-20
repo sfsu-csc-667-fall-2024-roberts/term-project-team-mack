@@ -1,4 +1,4 @@
-import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST } from "./sql";
+import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET_TEAMS, UPDATE_PLAYER_ROLE } from "./sql";
 import db from "../connection";
 
 const create = async (playerId: number, role: string, team: string) => {
@@ -54,4 +54,34 @@ const findOpenTeam = async (gameId: string) => {
     return { team: assignedTeam, role: assignedRole };
 };
 
-export default { create, join, availableGames, getHost, findOpenTeam };
+const getTeams = async (gameId: string) => {
+    const players = await db.any(GET_TEAMS, [gameId]);
+    // organize players into their team and role 
+    const redTeam = {
+        spymaster: null,
+        operative: null,
+    };
+    const blueTeam = {
+        spymaster: null,
+        operative: null,
+    };
+
+    players.forEach(player => {
+        if (player.team === "red") {
+            if (player.role === "spymaster") redTeam.spymaster = player.username;
+            if (player.role === "operative") redTeam.operative = player.username;
+        } else if (player.team === "blue") {
+            if (player.role === "spymaster") blueTeam.spymaster = player.username;
+            if (player.role === "operative") blueTeam.operative = player.username;
+        }
+    });
+
+    return { redTeam, blueTeam };
+}
+
+const updatePlayerRole = async (userId: number, gameId: string, role: string, team: string) => {
+    const { rows } = await db.query(UPDATE_PLAYER_ROLE, [role, team, userId, gameId]);
+    return rows[0];
+}
+
+export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole };
