@@ -69,7 +69,7 @@ router.post("/join/:gameId", async (req, res) => {
 
     req.app.get("io").emit("game-updated", game);
     res.redirect(`/games/lobby/${gameId}`);
-});
+}); 
 
 router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
     const { gameId, team, role } = req.params;
@@ -85,10 +85,14 @@ router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
 
 router.get("/lobby/:gameId", async (req, res) => {
     const { gameId } = req.params;
-    const { redTeam, blueTeam } = await Games.getTeams(gameId); 
+    const { redTeam, blueTeam } = await Games.getTeams(gameId);
+    const host = await Games.getHost(parseInt(gameId));
+    // @ts-expect-error
+    const username  = req.session.user;
+
     console.log({ redTeam, blueTeam });
 
-    res.render("lobby", { gameId, redTeam, blueTeam });
+    res.render("lobby", { gameId, redTeam, blueTeam, host, username });
 });
 
 // get this in a fetch
