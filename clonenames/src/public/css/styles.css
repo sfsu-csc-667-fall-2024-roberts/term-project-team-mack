@@ -2041,6 +2041,9 @@ html {
 .cursor-pointer {
   cursor: pointer;
 }
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
 .list-inside {
   list-style-position: inside;
 }
@@ -2172,6 +2175,10 @@ html {
 .bg-\[\#FFE400\] {
   --tw-bg-opacity: 1;
   background-color: rgb(255 228 0 / var(--tw-bg-opacity, 1));
+}
+.bg-gray-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(156 163 175 / var(--tw-bg-opacity, 1));
 }
 .p-2 {
   padding: 0.5rem;

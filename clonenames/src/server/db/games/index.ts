@@ -2,9 +2,7 @@ import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET
 import db from "../connection";
 
 const create = async (playerId: number, role: string, team: string) => {
-    const game = await db.one<{
-        created_by(created_by: any): unknown; id: number 
-}>(CREATE_GAME, [playerId]);
+    const game = await db.one<{created_by(created_by: any): unknown; id: number }>(CREATE_GAME, [playerId]);
     await db.one(ADD_PLAYER, [game.id, playerId, role, team]);
 
     return game;
@@ -19,8 +17,8 @@ const availableGames = async () => {
     return db.any(AVAILABLE_GAMES);
 };
 
-const getHost = async (host_id: number) => {
-    return db.one(GET_HOST, [host_id]);
+const getHost = async (game_id: number) => {
+    return db.one(GET_HOST, [game_id]);
 };
 
 const findOpenTeam = async (gameId: string) => {
@@ -79,9 +77,9 @@ const getTeams = async (gameId: string) => {
     return { redTeam, blueTeam };
 }
 
-const updatePlayerRole = async (userId: number, gameId: string, role: string, team: string) => {
-    const { rows } = await db.query(UPDATE_PLAYER_ROLE, [role, team, userId, gameId]);
-    return rows[0];
+const updatePlayerRole = async (userId: number, gameId: string, team: string, role: string) => {
+    const player = await db.one(UPDATE_PLAYER_ROLE, [team, role, userId, gameId]);
+    return player;
 }
 
 export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole };

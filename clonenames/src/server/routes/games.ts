@@ -7,8 +7,7 @@ router.post("/create", async (req, res) => {
     // @ts-expect-error
     const { id: user_id } = req.session.user;
     const game = await Games.create(user_id, "spymaster", "red");
-    // @ts-expect-error
-    const host = await Games.getHost(game.created_by);
+    const host = await Games.getHost(game.id);
     req.app.get("io").emit("game-created", { ...game, host: host.username });
 
     res.redirect(`/games/lobby/${game.id}`);
@@ -38,20 +37,25 @@ router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
     const { gameId, team, role } = req.params;
     // @ts-expect-error
     const { id: user_id, username } = req.session.user;
-    const updatedPlayer = await Games.updatePlayerRole(user_id, gameId, team, role);
+    await Games.updatePlayerRole(user_id, gameId, team, role);
     req.app.get("io").emit("player-updated", {
         role,
         team,
         username
     });
+
+    res.redirect(`/games/lobby/${gameId}`);
 });
 
 router.get("/lobby/:gameId", async (req, res) => {
+    // @ts-expect-error
+    const { username } = req.session.user;
     const { gameId } = req.params;
     const { redTeam, blueTeam } = await Games.getTeams(gameId); 
-    console.log({ redTeam, blueTeam });
+    const host = await Games.getHost(parseInt(gameId));
 
-    res.render("lobby", { gameId, redTeam, blueTeam });
+    console.log({ host, username });
+    res.render("lobby", { gameId, redTeam, blueTeam, host: host.username, username });
 });
 
 export default router;

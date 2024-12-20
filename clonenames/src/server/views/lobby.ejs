@@ -14,11 +14,17 @@
                     <div class="flex flex-col gap-6">
                         <!-- join buttons -->
                         <div class="flex">
-                            <form class="flex-1 text-center m-0">
-                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
+                            <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/red/spymaster" method="POST">
+                                <button 
+                                    class="h-10 border border-black rounded-full px-[6px] 
+                                    <%= redTeam.spymaster ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= redTeam.spymaster && "disabled" %>>Join as Spymaster</button>
                             </form>
-                            <form class="flex-1 text-center m-0">
-                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
+                            <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/red/operative" method="POST">
+                                <button 
+                                    class="h-10 border border-black rounded-full px-[6px] 
+                                    <%= redTeam.operative ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= redTeam.operative && "disabled" %>>Join as Operative</button>
                             </form>
                         </div>
                         <div class="h-full w-[325px] rounded-md bg-[#8F2B1C] p-[10px]">
@@ -30,11 +36,17 @@
                     <div class="flex flex-col gap-6">
                         <!-- join buttons -->
                         <div class="flex">
-                            <form class="flex-1 text-center m-0">
-                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Spymaster</button>
+                            <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/blue/spymaster" method="POST">
+                                <button 
+                                    class="h-10 border border-black rounded-full px-[6px]
+                                    <%= blueTeam.spymaster ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= blueTeam.spymaster && "disabled" %>>Join as Spymaster</button>
                             </form>
-                            <form class="flex-1 text-center m-0">
-                                <button class="h-10 border border-black rounded-full bg-[#FFE400] hover:bg-[#ECD300] px-[6px]">Join as Operative</button>
+                            <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/blue/operative" method="POST">
+                                <button 
+                                    class="h-10 border border-black rounded-full px-[6px]
+                                    <%= blueTeam.operative ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= blueTeam.operative && "disabled" %>>Join as Operative</button>
                             </form>
                         </div>
                         <div class="h-full w-[325px] rounded-md bg-[#3384A3] p-[10px]">
@@ -44,7 +56,10 @@
                     </div>
                 </div>
                 <form class="text-center m-0">
-                    <button class="w-full bg-[#FFE400] hover:bg-[#ECD300] rounded-full border border-black h-12">Start Game</button>
+                    <button 
+                    class="w-full rounded-full border border-black h-12
+                    <%= (host !== username) ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]` %>"
+                    <%= (host !== username) && "disabled" %>>Start Game</button>
                 </form>
             </div>
             <%- include('partials/chat') %>

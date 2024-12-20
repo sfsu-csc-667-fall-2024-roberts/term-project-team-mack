@@ -31,8 +31,10 @@ WHERE
 `;
 
 export const GET_HOST = `
-SELECT username FROM users
-WHERE users.id = ($1);
+SELECT u.username
+FROM users u
+JOIN games g ON g.created_by = u.id
+WHERE g.id = $1;
 `;
 
 export const FIND_OPEN_TEAM = `
@@ -59,7 +61,7 @@ WHERE
 
 export const UPDATE_PLAYER_ROLE = `
 UPDATE gameplayers
-SET role = $1, team = $2, joined_at = NOW()
+SET team = $1, role = $2, joined_at = NOW()
 WHERE user_id = $3 AND game_id = $4
 RETURNING *;
 `;
