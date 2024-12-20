@@ -54,5 +54,4 @@ router.get("/lobby/:gameId", async (req, res) => {
     res.render("lobby", { gameId, redTeam, blueTeam });
 });
 
-
 export default router;

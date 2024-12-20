@@ -3,14 +3,14 @@ import express from "express";
 const router = express.Router();
 
 router.post("/:roomId", (req, res) => {
-    const { roomId } = req.params;
+    // const { roomId } = res.locals.roomId;
     const { message } = req.body;
 
     // @ts-expect-error
     const { username } = req.session.user;
     const io = req.app.get("io");
 
-    io.to(roomId).emit(`message:${roomId}`, {
+    io.emit(`message:0`, {
         message,
         sender: username,
         timestamp: new Date()

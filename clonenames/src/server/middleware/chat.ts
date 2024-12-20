@@ -5,11 +5,10 @@ const chatMiddleware = (
     response: Response,
     next: NextFunction
 ) => {
-    if(request.params.gameId !== undefined) {
-        response.locals.roomId = request.params.gameId;
-    } else {
-        response.locals.roomId = 0;
-    }
+    const gameId = request.params.gameId;
+    
+    // roomId is gameId if it exists, otherwise it's 0
+    response.locals.roomId = gameId ? gameId : 0;
 
     next();
 };
