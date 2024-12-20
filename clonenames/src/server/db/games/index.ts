@@ -2,10 +2,15 @@ import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET
 import db from "../connection";
 
 const create = async (playerId: number, role: string, team: string) => {
-    const game = await db.one<{created_by(created_by: any): unknown; id: number }>(CREATE_GAME, [playerId]);
-    await db.one(ADD_PLAYER, [game.id, playerId, role, team]);
+    try {
+        const game = await db.one<{created_by(created_by: any): unknown; id: number }>(CREATE_GAME, [playerId]);
+        const addedPlayer = await db.one(ADD_PLAYER, [game.id, playerId, role, team]);
 
-    return game;
+        return game;
+    } catch(err) {
+        console.error("Error in create function:", err);
+        throw err;
+    }
 };
 
 const join = async (playerId: number, gameId: number, role: string, team: string) => {
@@ -18,7 +23,8 @@ const availableGames = async () => {
 };
 
 const getHost = async (game_id: number) => {
-    return db.one(GET_HOST, [game_id]);
+    const host = await db.one(GET_HOST, [game_id]);
+    return host;
 };
 
 const findOpenTeam = async (gameId: string) => {

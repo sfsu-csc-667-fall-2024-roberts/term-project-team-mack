@@ -23,5 +23,5 @@
     
                 gameBoardElement.appendChild(card);
             });
-        })
+        });
 })();

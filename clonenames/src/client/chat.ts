@@ -5,14 +5,6 @@ const messageTemplate = document.querySelector(
     "#chat-message-template"
 )! as HTMLTemplateElement;
 
-input.addEventListener("keydown", keyDownEvent => {
-    if(keyDownEvent.key === "Enter") {
-        form.dispatchEvent(new Event("submit"));
-    }
-});
-
-console.log({ form, input });
-
 form.addEventListener("submit", (e) => {
     e.preventDefault();
 

@@ -44,8 +44,10 @@ router.post("/create", async (req, res) => {
     // @ts-expect-error
     const { id: user_id } = req.session.user;
     const game = await Games.create(user_id, "spymaster", "red");
-    // @ts-expect-error
-    const host = await Games.getHost(game.created_by);
+    console.log("Game from route:", game);
+
+    const host = await Games.getHost(game.id);
+    console.log("GOT HOST:", host);
     req.app.get("io").emit("game-created", { ...game, host: host.username });
 
     res.redirect(`/games/lobby/${game.id}`);
@@ -81,6 +83,8 @@ router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
         team,
         username
     });
+
+    res.status(200).send();
 });
 
 router.get("/lobby/:gameId", async (req, res) => {
