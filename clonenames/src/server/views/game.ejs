@@ -4,12 +4,108 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Codenames</title>
         <link rel="stylesheet" href="/css/styles.css">
+        <style>
+            .gameCard {
+                background-color: white;
+                color: black;
+                transition: background-color 0.3s ease, color 0.3s ease;
+            }
+            .gameCard.revealed.red {
+                background-color: #8F2B1C;
+                color: white;
+            }
+            .gameCard.revealed.blue {
+                background-color: #3384A3;
+                color: white;
+            }
+            .gameCard.revealed.neutral {
+                background-color: #f7d358;
+                color: black;
+            }
+            .gameCard.revealed.assassin {
+                background-color: #333;
+                color: white;
+            }
+        </style>
     </head>
     <body>
         <%- include('partials/navbar') %>
-        <h1>Game <%= gameId %></h1>
-        <h1><%= redTeam, blueTeam %></h1>
-        <h1><%= board, keycard %></h1>
+        <div class="h-[90vh] p-[30px] flex bg-primary">
+            <!-- score section -->
+            <div class="flex flex-col gap-10 m-6">
+                <div class="h-[35vh] bg-[#8F2B1C] flex justify-center items-center rounded-lg w-[180px] shadow-xl">
+                    <h1 class="text-2xl text-white">Red Score:</h1>
+                    <div class="redScore text-2xl text-white">0</div>
+                </div>
+                <div class="h-[35vh] bg-[#3384A3] flex justify-center items-center rounded-lg w-[180px] shadow-xl">
+                    <h1 class="text-2xl text-white">Blue Score:</h1>
+                    <div class="blueScore text-2xl text-white">0</div>
+                </div>
+            </div>
+
+            <!-- game board -->
+            <div class="game-board grid grid-cols-5 gap-4 flex-grow">
+                <% board.forEach((row) => { %>
+                    <% row.forEach((card) => { %>
+                        <div class="gameCard 
+                            <%= card.revealed ? `revealed ${card.type}` : '' %> 
+                            flex items-center justify-center p-4 text-xl font-bold text-center rounded-md shadow-lg">
+                            <%= card.word %>
+                        </div>
+                    <% }) %>
+                <% }) %>
+            </div>
+            <div class="flex-1"></div>
+
+            <!-- key card for spymaster -->
+            <% if (redTeam.spymaster === username || blueTeam.spymaster === username) { %>
+                <div class="flex justify-center items-center">
+                    <div class="flex flex-col justify-center items-center">
+                        <div id="spymaster-keycard" class="bg-[#eed500] p-4 border rounded-lg shadow-lg mb-6">
+                            <h2 class="text-2xl font-bold text-center mb-4">Spymaster Keycard</h2>
+                            <div class="grid grid-cols-5 gap-2 bg-white p-4 border border-black">
+                                <% board.forEach((row) => { %>
+                                    <% row.forEach((card) => { %>
+                                        <div class="gameCard revealed <%= card.type %> h-8 w-8"></div>
+                                    <% }) %>
+                                <% }) %>
+                            </div>
+                        </div>
+
+                        <!-- hint submission form -->
+                        <form action="/send-hint" method="POST" class="flex items-center gap-4">
+                            <!-- Hint Word -->
+                            <div class="flex flex-col items-start">
+                                <input 
+                                    type="text" 
+                                    id="hintWord" 
+                                    name="hintWord" 
+                                    class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                                    placeholder="Enter your hint word" 
+                                    required>
+                            </div>
+
+                            <!-- Hint Number -->
+                            <div class="flex flex-col items-start">
+                                <input 
+                                    type="number" 
+                                    id="hintNumber" 
+                                    name="hintNumber" 
+                                    class="w-24 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
+                                    placeholder="0">                                
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button 
+                                type="submit" 
+                                class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">
+                                Send Hint
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <% } %>
+        </div>
     </body>
     <%- include('partials/footer') %>
 </html>

@@ -72,13 +72,15 @@ router.post("/joining/:gameId", (req, res) => {
 });
 
 router.get("/:gameId", async (req, res) => {
+    // @ts-expect-error
+    const { username } = req.session.user;
     const { gameId } = req.params;
     const data = await Games.getBoardAndKeyCard(gameId);
     const { redTeam, blueTeam } = await Games.getTeams(gameId);
 
     console.log("DATA:", data);
     console.log("TEAMS", redTeam, blueTeam);
-    res.render("game", { gameId, board: data.grid, keycard: data.keycard, redTeam, blueTeam });
+    res.render("game", { gameId, board: data.grid, keycard: data.keycard, redTeam, blueTeam, username });
 });
 
 export default router;
