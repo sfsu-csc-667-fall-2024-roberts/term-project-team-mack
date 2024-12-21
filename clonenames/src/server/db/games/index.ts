@@ -161,9 +161,18 @@ const start = async (gameId: string) => {
     await db.none(START_GAME, [gameId, boardJSON, keyCardJSON, 'red']);
 }
 
+const sendHint = async (gameId: string, hint: string, number: number) => {
+    const data = {
+        hint,
+        number
+    };
+    return data;
+}
+
+
 const getBoardAndKeyCard = async (gameId: string) => {
     const data = await db.any(GET_BOARD_AND_KEYCARD, [gameId]);
     return data[0];
 }
 
-export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, getPlayers, start, getBoardAndKeyCard };
+export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, getPlayers, start, sendHint, getBoardAndKeyCard };

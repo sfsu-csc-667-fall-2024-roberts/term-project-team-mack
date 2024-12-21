@@ -57,8 +57,16 @@
             </div>
             <div class="flex-1"></div>
 
+            <% if (turn % 4 === 2 || turn % 4 === 0) { %>
+                <div class="flex flex-col justify-center items-center">
+                    <div class="bg-secondary p-4 border rounded-lg shadow-lg mb-6">
+                        <h2 class="text-2xl font-bold text-center mb-4">Hint: <%= hint %></h2>
+                        <h2 class="text-2xl font-bold text-center mb-4">Count: <%= count %></h2>
+                    </div>
+            <% } %>
+
             <!-- key card for spymaster -->
-            <% if (redTeam.spymaster === username || blueTeam.spymaster === username) { %>
+            <% if ((redTeam.spymaster === username && turn % 4 === 1) || (blueTeam.spymaster === username && turn % 4 === 3)) { %>
                 <div class="flex justify-center items-center">
                     <div class="flex flex-col justify-center items-center">
                         <div id="spymaster-keycard" class="bg-[#eed500] p-4 border rounded-lg shadow-lg mb-6">
@@ -73,7 +81,7 @@
                         </div>
 
                         <!-- hint submission form -->
-                        <form action="/send-hint" method="POST" class="flex items-center gap-4">
+                        <form action="/games/send-hint/<%= gameId %>/<%= turn %>" method="POST" class="flex items-center gap-4">
                             <!-- Hint Word -->
                             <div class="flex flex-col items-start">
                                 <input 

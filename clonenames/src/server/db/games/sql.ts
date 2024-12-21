@@ -82,3 +82,4 @@ SELECT grid, keycard
 FROM gamestate
 WHERE game_id = $1;
 `;
+
