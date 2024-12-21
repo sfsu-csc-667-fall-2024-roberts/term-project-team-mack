@@ -15,7 +15,6 @@ window.socket.on("game-created", (game) => {
 });
 
 window.socket.on("game-updated", (game) => {
-    console.log("game-updated emitted and received!", game);
     const row = list.querySelector<HTMLTableRowElement>(`#game-row-${game.game_id}`);
     
     if(row) {

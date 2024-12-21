@@ -27,6 +27,14 @@ router.post("/start/:gameId", async (req, res) => {
     const { gameId } = req.params;
     const { board, keyCard } = await Games.start(gameId);
     console.log({board, keyCard});
+    const socket = req.app.get("io");
+    const players = await Games.getPlayers(gameId);
+
+    players.forEach((player) => {
+        socket.emit("gameStarted", { gameId, username: player.username });
+    });
+    
+    res.status(200).send(`Game ${gameId} started`);
 });
 
 router.post("/join/:gameId", async (req, res) => {
@@ -39,24 +47,16 @@ router.post("/join/:gameId", async (req, res) => {
     const game = await Games.join(user_id, parseInt(gameId), role, team);
 
     req.app.get("io").emit("game-updated", game);
-    req.app.get("io").emit("player-updated", {
-        role, 
-        team, 
-        username
-    });
+    req.app.get("io").emit("player-updated", (gameId));
     res.redirect(`/games/lobby/${gameId}`);
 }); 
 
 router.post("/joinTeam/:gameId/:team/:role", async (req, res) => {
     const { gameId, team, role } = req.params;
     // @ts-expect-error
-    const { id: user_id, username } = req.session.user;
+    const { id: user_id } = req.session.user;
     await Games.updatePlayerRole(user_id, gameId, team, role);
-    req.app.get("io").emit("player-updated", {
-        role,
-        team,
-        username
-    });
+    req.app.get("io").emit("player-updated", (gameId));
 
     res.redirect(`/games/lobby/${gameId}`);
 });

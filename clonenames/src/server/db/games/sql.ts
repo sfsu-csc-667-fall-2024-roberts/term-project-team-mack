@@ -70,3 +70,10 @@ export const START_GAME = `
 INSERT INTO gamestate (game_id, grid, current_turn)
 VALUES ($1, $2, $3);
 `;
+
+export const GET_PLAYERS = `
+SELECT u.id, u.username
+FROM users u 
+JOIN gameplayers gp ON gp.user_id = u.id
+WHERE gp.game_id = $1;
+`;

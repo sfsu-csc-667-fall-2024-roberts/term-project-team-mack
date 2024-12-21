@@ -1,4 +1,4 @@
-import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET_TEAMS, START_GAME, UPDATE_PLAYER_ROLE } from "./sql";
+import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET_PLAYERS, GET_TEAMS, START_GAME, UPDATE_PLAYER_ROLE } from "./sql";
 import db from "../connection";
 
 // HELPER FUNCTIONS FOR STARTING GAME 
@@ -126,6 +126,12 @@ const updatePlayerRole = async (userId: number, gameId: string, team: string, ro
     return player;
 }
 
+const getPlayers = async (gameId: string) => {
+    const players = await db.any(GET_PLAYERS, [gameId]);
+    console.log({ players });
+    return players;
+}
+
 const start = async (gameId: string) => {
     const words = getRandomWords();
     const keyCard = getRandomColorCodes();
@@ -156,4 +162,4 @@ const start = async (gameId: string) => {
     return { board: boardJSON, keyCard }
 }
 
-export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, start };
+export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, getPlayers, start };
