@@ -10,7 +10,6 @@ router.post("/create", async (req, res) => {
     console.log("Game from route:", game);
 
     const host = await Games.getHost(game.id);
-    console.log("GOT HOST:", host);
     req.app.get("io").emit("game-created", { ...game, host: host });
 
     res.redirect(`/games/lobby/${game.id}`);
@@ -26,18 +25,17 @@ router.get("/availableGames", async (_req, res) => {
 router.post("/start/:gameId", async (req, res) => {
     const { gameId } = req.params;
     await Games.start(gameId);
-    const socket = req.app.get("io");
-    socket.emit("gameStarted", gameId);
+    req.app.get("io").emit("game-started", gameId);
     
     res.redirect(`/games/${gameId}`);
 });
 
 router.post("/join/:gameId", async (req, res) => {
     // @ts-expect-error
-    const { id: user_id, username } = req.session.user;
+    const { id: user_id } = req.session.user;
     const { gameId } = req.params;
 
-    // - Automatically put them in an open team and role 
+    // - automatically put them in an open team and role 
     const { team, role } = await Games.findOpenTeam(gameId);
     const game = await Games.join(user_id, parseInt(gameId), role, team);
 
@@ -64,6 +62,13 @@ router.get("/lobby/:gameId", async (req, res) => {
     const { username }  = req.session.user;
 
     res.render("lobby", { gameId, redTeam, blueTeam, host , username });
+});
+
+router.post("/joining/:gameId", (req, res) => {
+    const { gameId } = req.params;
+    console.log("JOINING GAME:", gameId);
+
+    res.redirect(`/games/${gameId}`);
 });
 
 router.get("/:gameId", async (req, res) => {

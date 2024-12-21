@@ -122,8 +122,7 @@ const getTeams = async (gameId: string) => {
 }
 
 const updatePlayerRole = async (userId: number, gameId: string, team: string, role: string) => {
-    const player = await db.one(UPDATE_PLAYER_ROLE, [team, role, userId, gameId]);
-    return player;
+    await db.none(UPDATE_PLAYER_ROLE, [team, role, userId, gameId]);
 }
 
 const getPlayers = async (gameId: string) => {

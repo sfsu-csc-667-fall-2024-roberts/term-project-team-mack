@@ -62,8 +62,7 @@ WHERE
 export const UPDATE_PLAYER_ROLE = `
 UPDATE gameplayers
 SET team = $1, role = $2, joined_at = NOW()
-WHERE user_id = $3 AND game_id = $4
-RETURNING *;
+WHERE user_id = $3 AND game_id = $4;
 `;
 
 export const START_GAME = `

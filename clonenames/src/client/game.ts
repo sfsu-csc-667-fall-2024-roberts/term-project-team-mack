@@ -26,6 +26,18 @@
 //         });
 // })();
 
-window.socket.on("gameStarted", (gameId) => {
-    fetch(`/games/${gameId}`);
+window.socket.on("game-started", (gameId) => {
+    console.log("game-started picked up on");
+    fetch(`/games/joining/${gameId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            body: JSON.stringify({ message: "Joining the game" })
+        }
+    }).then((res) => {
+        console.log(res);
+        window.location.href = res.url;
+    }).catch((err) => {
+        console.error(err);
+    });
 });
