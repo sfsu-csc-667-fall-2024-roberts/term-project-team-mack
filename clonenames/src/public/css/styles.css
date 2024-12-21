@@ -236,6 +236,16 @@ small {
   font-size: 80%;
 }
 
+
+.navbar img {
+  object-fit: cover; /* Optional: Ensures the image fits nicely */
+  vertical-align: middle; /* Aligns the image vertically */
+  height: 10%;
+  max-width: 80%;
+  transform: translateX(-10px); /* makes logo lign up with left side of page*/
+}
+
+
 /*
 Prevent `sub` and `sup` elements from affecting the line height in all browsers.
 */
@@ -298,6 +308,12 @@ Remove the inheritance of text transform in Edge and Firefox.
 button,
 select {
   text-transform: none;
+}
+
+button:focus {
+  color: #fff;
+  border-width: 4px;
+  background-color: #47AEEA;
 }
 
 /*

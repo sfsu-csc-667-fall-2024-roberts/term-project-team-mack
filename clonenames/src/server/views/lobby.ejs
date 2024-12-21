@@ -17,13 +17,13 @@
                             <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/red/spymaster" method="POST">
                                 <button 
                                     class="h-10 border border-black rounded-full px-[6px] 
-                                    <%= redTeam.spymaster ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= redTeam.spymaster ? `bg-gray-400 cursor-not-allowed` : `bg-[#8F2B1C] hover:bg-[#ECD300]`%>"
                                     <%= redTeam.spymaster && "disabled" %>>Join as Spymaster</button>
                             </form>
                             <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/red/operative" method="POST">
                                 <button 
                                     class="h-10 border border-black rounded-full px-[6px] 
-                                    <%= redTeam.operative ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= redTeam.operative ? `bg-gray-400 cursor-not-allowed` : `bg-[#8F2B1C] hover:bg-[#ECD300]`%>"
                                     <%= redTeam.operative && "disabled" %>>Join as Operative</button>
                             </form>
                         </div>
@@ -39,19 +39,23 @@
                             <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/blue/spymaster" method="POST">
                                 <button 
                                     class="h-10 border border-black rounded-full px-[6px]
-                                    <%= blueTeam.spymaster ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= blueTeam.spymaster ? `bg-gray-400 cursor-not-allowed` : `bg-[#3384A3] hover:bg-[#ECD300]`%>"
                                     <%= blueTeam.spymaster && "disabled" %>>Join as Spymaster</button>
                             </form>
                             <form class="flex-1 text-center m-0" action="/games/joinTeam/<%= gameId %>/blue/operative" method="POST">
                                 <button 
                                     class="h-10 border border-black rounded-full px-[6px]
-                                    <%= blueTeam.operative ? `bg-gray-400 cursor-not-allowed` : `bg-[#FFE400] hover:bg-[#ECD300]`%>"
+                                    <%= blueTeam.operative ? `bg-gray-400 cursor-not-allowed` : `bg-[#3384A3] hover:bg-[#ECD300]`%>"
                                     <%= blueTeam.operative && "disabled" %>>Join as Operative</button>
                             </form>
                         </div>
                         <div class="h-full w-[325px] rounded-md bg-[#3384A3] p-[10px]">
-                            <div class="blueSpymaster text-2xl text-white mb-10">Spymaster: <%= blueTeam.spymaster ? blueTeam.spymaster : "-" %></div> <!-- blue spymaster -->
-                            <div class="blueOperative text-2xl text-white">Operative: <%= blueTeam.operative ? blueTeam.operative : "-" %></div> <!-- blue operative -->
+                            <div class="blueSpymaster text-2xl text-white mb-10">Spymaster: <%= blueTeam.spymaster ?
+                                    blueTeam.spymaster : "-" %>
+                            </div> <!-- blue spymaster -->
+                            <div class="blueOperative text-2xl text-white">Operative: <%= blueTeam.operative ?
+                                    blueTeam.operative : "-" %>
+                            </div> <!-- blue operative -->
                         </div>
                     </div>
                 </div>

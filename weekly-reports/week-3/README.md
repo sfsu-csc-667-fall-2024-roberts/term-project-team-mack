@@ -13,3 +13,4 @@ This week we setup the frontend of our project and created the routes for each p
 - signup page
 - how to play page
 - about us page
+- profile page

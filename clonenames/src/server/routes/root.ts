@@ -53,4 +53,9 @@ router.get("/how-to-play", (_req, response) => {
     response.render("how-to-play", { title: "how-to-play", desc: "This page will have instructions of how the game, codenames, is played", user: _req.session.user });
 });
 
+router.get("/profile", (_req, response) => {
+    // @ts-expect-error
+    response.render("profile", { title: "profile", desc: "This page will include details about the user, including preferences, messages, etc.", user: _req.session.user });
+});
+
 export default router;
