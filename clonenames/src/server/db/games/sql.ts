@@ -67,8 +67,8 @@ RETURNING *;
 `;
 
 export const START_GAME = `
-INSERT INTO gamestate (game_id, grid, current_turn)
-VALUES ($1, $2, $3);
+INSERT INTO gamestate (game_id, grid, keyCard, current_turn)
+VALUES ($1, $2, $3, $4);
 `;
 
 export const GET_PLAYERS = `
@@ -76,4 +76,10 @@ SELECT u.id, u.username
 FROM users u 
 JOIN gameplayers gp ON gp.user_id = u.id
 WHERE gp.game_id = $1;
+`;
+
+export const GET_BOARD_AND_KEYCARD = `
+SELECT grid, keycard
+FROM gamestate
+WHERE game_id = $1;
 `;

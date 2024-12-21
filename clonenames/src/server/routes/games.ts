@@ -25,16 +25,11 @@ router.get("/availableGames", async (_req, res) => {
 
 router.post("/start/:gameId", async (req, res) => {
     const { gameId } = req.params;
-    const { board, keyCard } = await Games.start(gameId);
-    console.log({board, keyCard});
+    await Games.start(gameId);
     const socket = req.app.get("io");
-    const players = await Games.getPlayers(gameId);
-
-    players.forEach((player) => {
-        socket.emit("gameStarted", { gameId, username: player.username });
-    });
+    socket.emit("gameStarted", gameId);
     
-    res.status(200).send(`Game ${gameId} started`);
+    res.redirect(`/games/${gameId}`);
 });
 
 router.post("/join/:gameId", async (req, res) => {
@@ -69,6 +64,16 @@ router.get("/lobby/:gameId", async (req, res) => {
     const { username }  = req.session.user;
 
     res.render("lobby", { gameId, redTeam, blueTeam, host , username });
+});
+
+router.get("/:gameId", async (req, res) => {
+    const { gameId } = req.params;
+    const data = await Games.getBoardAndKeyCard(gameId);
+    const { redTeam, blueTeam } = await Games.getTeams(gameId);
+
+    console.log("DATA:", data);
+    console.log("TEAMS", redTeam, blueTeam);
+    res.render("game", { gameId, board: data.grid, keycard: data.keycard, redTeam, blueTeam });
 });
 
 export default router;

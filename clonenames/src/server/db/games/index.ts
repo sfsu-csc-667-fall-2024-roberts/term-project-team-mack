@@ -1,4 +1,4 @@
-import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_HOST, GET_PLAYERS, GET_TEAMS, START_GAME, UPDATE_PLAYER_ROLE } from "./sql";
+import { ADD_PLAYER, AVAILABLE_GAMES, CREATE_GAME, FIND_OPEN_TEAM, GET_BOARD_AND_KEYCARD, GET_HOST, GET_PLAYERS, GET_TEAMS, START_GAME, UPDATE_PLAYER_ROLE } from "./sql";
 import db from "../connection";
 
 // HELPER FUNCTIONS FOR STARTING GAME 
@@ -157,9 +157,14 @@ const start = async (gameId: string) => {
     });
 
     const boardJSON = JSON.stringify(board);
+    const keyCardJSON = JSON.stringify(keyCard);
 
-    await db.none(START_GAME, [gameId, boardJSON, 'red']);
-    return { board: boardJSON, keyCard }
+    await db.none(START_GAME, [gameId, boardJSON, keyCardJSON, 'red']);
 }
 
-export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, getPlayers, start };
+const getBoardAndKeyCard = async (gameId: string) => {
+    const data = await db.any(GET_BOARD_AND_KEYCARD, [gameId]);
+    return data[0];
+}
+
+export default { create, join, availableGames, getHost, findOpenTeam, getTeams, updatePlayerRole, getPlayers, start, getBoardAndKeyCard };

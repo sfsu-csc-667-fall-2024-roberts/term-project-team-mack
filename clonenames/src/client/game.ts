@@ -26,6 +26,6 @@
 //         });
 // })();
 
-window.socket.on("gameStarted", (data) => {
-    window.location.href = `/games/${data.game_id}`
+window.socket.on("gameStarted", (gameId) => {
+    fetch(`/games/${gameId}`);
 });
