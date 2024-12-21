@@ -65,6 +65,21 @@
                     </div>
             <% } %>
 
+            <% if ((redTeam.operative === username && turn % 4 === 2) || (blueTeam.operative === username && turn % 4 === 0)) { %>
+                <div class="flex flex-col justify-center items-center">
+                    <div class="bg-secondary p-4 border rounded-lg shadow-lg mb-6">
+                        <h2 class="text-2xl font-bold text-center mb-4">Your Turn</h2>
+                        <h2 class="text-2xl font-bold text-center mb-4">Select a card</h2>
+                        <form action="/games/guess/<%= gameId %>/<%= turn %>" method="POST">
+                            <button 
+                                type="submit" 
+                                class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-300">
+                                End Turn
+                            </button>
+                    </div>
+                </div>
+            <% } %>
+
             <!-- key card for spymaster -->
             <% if ((redTeam.spymaster === username && turn % 4 === 1) || (blueTeam.spymaster === username && turn % 4 === 3)) { %>
                 <div class="flex justify-center items-center">

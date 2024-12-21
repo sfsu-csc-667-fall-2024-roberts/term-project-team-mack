@@ -41,6 +41,17 @@ router.post("/send-hint/:gameId/:turn", async (req, res) => {
 
     res.redirect(`/games/${gameId}/${turnUpdate}?hint=${hint}&count=${count}`);
 });
+
+router.post("/guess/:gameId/:turn", async (req, res) => {
+    const gameId = req.params.gameId;
+    const turn = req.params.turn;
+    const turnUpdate = parseInt(turn) + 1;
+    const hint = "";
+    const count = "";
+    req.app.get("io").emit("hint-sent", { gameId, turnUpdate, hint, count });
+
+    res.redirect(`/games/${gameId}/${turnUpdate}`);
+});
     
 
 router.post("/join/:gameId", async (req, res) => {
