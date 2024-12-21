@@ -27,8 +27,21 @@ router.post("/start/:gameId", async (req, res) => {
     await Games.start(gameId);
     req.app.get("io").emit("game-started", gameId);
     
-    res.redirect(`/games/${gameId}`);
+    res.redirect(`/games/${gameId}/1`);
 });
+
+router.post("/send-hint/:gameId/:turn", async (req, res) => {
+    const gameId = req.params.gameId;
+    const turn = req.params.turn;
+    const hint = req.body.hintWord;
+    const count = req.body.hintNumber;
+    await Games.sendHint(gameId, hint, count);
+    const turnUpdate = parseInt(turn) + 1;
+    req.app.get("io").emit("hint-sent", { gameId, turnUpdate, hint, count });
+
+    res.redirect(`/games/${gameId}/${turnUpdate}?hint=${hint}&count=${count}`);
+});
+    
 
 router.post("/join/:gameId", async (req, res) => {
     // @ts-expect-error
@@ -68,19 +81,25 @@ router.post("/joining/:gameId", (req, res) => {
     const { gameId } = req.params;
     console.log("JOINING GAME:", gameId);
 
-    res.redirect(`/games/${gameId}`);
+    res.redirect(`/games/${gameId}/1`);
 });
 
-router.get("/:gameId", async (req, res) => {
+router.get("/:gameId/:turn", async (req, res) => {
     // @ts-expect-error
     const { username } = req.session.user;
-    const { gameId } = req.params;
+    const gameId = req.params.gameId;
+    const turn = req.params.turn;
+
+    // get hint and count from query string if it exists
+    const hint = req.query.hint;
+    const count = req.query.count;
+
     const data = await Games.getBoardAndKeyCard(gameId);
     const { redTeam, blueTeam } = await Games.getTeams(gameId);
 
     console.log("DATA:", data);
     console.log("TEAMS", redTeam, blueTeam);
-    res.render("game", { gameId, board: data.grid, keycard: data.keycard, redTeam, blueTeam, username });
+    res.render("game", { gameId, board: data.grid, keycard: data.keycard, redTeam, blueTeam, username, turn, hint, count });
 });
 
 export default router;

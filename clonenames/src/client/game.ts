@@ -41,3 +41,19 @@ window.socket.on("game-started", (gameId) => {
         console.error(err);
     });
 });
+
+window.socket.on("hint-sent", ({ gameId, turnUpdate, hint, count }) => {
+    console.log("hint-sent picked up on");
+    fetch(`/games/${gameId}/${turnUpdate}?hint=${hint}&count=${count}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            body: JSON.stringify({ hint, count })
+        }
+    }).then((res) => {
+        console.log(res);
+        window.location.href = res.url;
+    }).catch((err) => {
+        console.error(err);
+    });
+});
